@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import allure
 from diplom.search_page import SearchPage
-from diplom.settings import BASE_URL
+from diplom.config import BASE_URL_UI
 
 @pytest.fixture(scope='session')
 def driver():

@@ -1,7 +1,7 @@
 import pytest
 import requests 
 import allure
-from diplom.config import BASE_URL, HEADERS
+from config import BASE_URL_API, HEADERS
 
 @allure.feature('API Responses')
 @pytest.mark.parametrize("endpoint, expected_status", [
@@ -16,7 +16,7 @@ def test_api_responses(endpoint, expected_status):
     Универсальный тест для проверки статуса ответа API по различным endpoint'ам.
     """
     with allure.step(f"Отправка GET запроса на {endpoint}"):
-        response = requests.get(f"{BASE_URL}{endpoint}", headers=HEADERS)
+        response = requests.get(f"{BASE_URL_API}{endpoint}", headers=HEADERS)
     
     with allure.step(f"Проверка, что статус ответа равен {expected_status}"):
         assert response.status_code == expected_status, f"Expected {expected_status}, got {response.status_code}"
@@ -27,7 +27,7 @@ def test_search_content_by_id():
     Тест API на поиск контента по ID.
     """
     with allure.step("Отправка GET запроса на https://api.kinopoisk.dev/v1.4/movie/10000"):
-        response = requests.get(f"{BASE_URL}/movie/10000", headers=HEADERS)
+        response = requests.get(f"{BASE_URL_API}/movie/10000", headers=HEADERS)
     
     with allure.step("Проверка, что статус ответа равен 200"):
         assert response.status_code == 200
@@ -38,7 +38,7 @@ def test_search_content_by_title():
     Тест API на поиск контента по названию.
     """
     with allure.step("Отправка GET запроса на https://api.kinopoisk.dev/v1.4/movie/search?page=1&limit=10&query=Лобстер"):
-        response = requests.get(f"{BASE_URL}/movie/search?page=1&limit=10&query=Лобстер", headers=HEADERS)
+        response = requests.get(f"{BASE_URL_API}/movie/search?page=1&limit=10&query=Лобстер", headers=HEADERS)
     
     with allure.step("Проверка, что статус ответа равен 200"):
         assert response.status_code == 200
@@ -49,7 +49,7 @@ def test_search_person_by_name():
     Тест API на поиск актеров, режиссеров по имени/фамилии.
     """
     with allure.step("Отправка GET запроса на https://api.kinopoisk.dev/v1.4/person/search?page=1&limit=10&query=Стэйтем"):
-        response = requests.get(f"{BASE_URL}/person/search?page=1&limit=10&query=Стэйтем", headers=HEADERS)
+        response = requests.get(f"{BASE_URL_API}/person/search?page=1&limit=10&query=Стэйтем", headers=HEADERS)
     
     with allure.step("Проверка, что статус ответа равен 200"):
         assert response.status_code == 200
@@ -60,7 +60,7 @@ def test_search_content_invalid_params():
     Тест API на поиск контента с неверными параметрами запроса.
     """
     with allure.step("Отправка GET запроса на https://api.kinopoisk.dev/v1.4/movie/search?page=0&limit=0&query=Лобстер"):
-        response = requests.get(f"{BASE_URL}/movie/search?page=0&limit=0&query=Лобстер", headers=HEADERS)
+        response = requests.get(f"{BASE_URL_API}/movie/search?page=0&limit=0&query=Лобстер", headers=HEADERS)
     
     with allure.step("Проверка, что статус ответа равен 400"):
         assert response.status_code == 400
@@ -71,7 +71,7 @@ def test_search_content_id_out_of_bounds():
     Тест API на поиск контента по ID, выходящему за допустимые значения.
     """
     with allure.step("Отправка GET запроса на https://api.kinopoisk.dev/v1.4/movie/1000000000000"):
-        response = requests.get(f"{BASE_URL}/movie/1000000000000", headers=HEADERS)
+        response = requests.get(f"{BASE_URL_API}/movie/1000000000000", headers=HEADERS)
     
     with allure.step("Проверка, что статус ответа равен 400"):
         assert response.status_code == 400

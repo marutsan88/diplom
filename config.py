@@ -3,3 +3,4 @@ HEADERS = {
     "accept": "application/json",
     "X-API-KEY": "FVNX1T1-6Q5MYB7-GZARQBN-W82KWVG"
 }
+BASE_URL_UI = "https://www.kinopoisk.ru/s/"

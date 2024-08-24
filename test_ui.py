@@ -2,8 +2,8 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import allure
-from diplom.search_page import SearchPage
-from diplom.config import BASE_URL_UI
+from search_page import SearchPage
+from config import BASE_URL_UI
 
 @pytest.fixture(scope='session')
 def driver():
@@ -13,7 +13,7 @@ def driver():
 
 @pytest.fixture
 def search_page(driver):
-    driver.get(BASE_URL)
+    driver.get(BASE_URL_UI)
     return SearchPage(driver)
 
 @allure.feature('Search by Year')
